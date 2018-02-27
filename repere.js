@@ -1,3 +1,10 @@
+/** TODO
+
+- auto scale depending on function (most of the curve must be visible !)
+- input for changing function
+*/
+
+
 class Repere {
   constructor(el){
 
@@ -36,8 +43,12 @@ class Repere {
     let ecart = w / scale
 
     for(var i = -scale/2; i < scale/2; i++){
-      ctx.moveTo( i * ecart , 0)
-      ctx.lineTo( i * ecart , -5)
+      let x = i * ecart
+      ctx.moveTo( x , 0)
+      ctx.lineTo( x , -5)
+      if (i != 0) {
+        ctx.fillText(i, x-4, 10)
+      }
     }
 
     ctx.stroke()
@@ -55,6 +66,9 @@ class Repere {
     ctx.fillStyle = "red"
 
 
+
+
+
     for(var x = -scale / 2; x < scale/2; x+=sampling ){
       let y = func(x)
 
@@ -63,6 +77,14 @@ class Repere {
 
       ctx.fillRect(cnv_x, cnv_y, 2, 2);
     }
+
+    let funcText = "f" +  func.toString().replace('>', '').replace("*", "")
+    let textLength = ctx.measureText(funcText).width
+
+    ctx.fillStyle = "#000"
+
+    ctx.fillText(funcText, w/2 - textLength - 5, -h/2 + 20)
+
   }
 
 
