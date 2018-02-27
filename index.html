@@ -3,10 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Repère</title>
+  <style>
+
+    canvas {
+      border: 1px solid red;
+    }
+  </style>
 </head>
 <body>
   <div id="repere"></div>
   <script src="./repere.js"></script>
+  <script>
+    let el = document.querySelector('#repere')
+    let repere_1 = new Repere(el)
 
+    repere_1.displayFunction( (x) => {
+      return 2*x + 1
+    })
+
+  </script>
 </body>
 </html>
