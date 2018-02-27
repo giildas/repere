@@ -13,7 +13,7 @@ class Repere {
 
 
     this.size = {
-      w: 50,
+      w: 300,
       h: 300,
       scale: 10, // from -5 to 5
       sampling: 0.05
