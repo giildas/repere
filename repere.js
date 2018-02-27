@@ -47,6 +47,9 @@ class Repere {
       ctx.lineTo( x , -5)
       if (i != 0) {
         ctx.fillText(i, x-4, 10)
+      }else{
+        ctx.fillText(i, 10, 10)
+
       }
     }
 
@@ -54,19 +57,35 @@ class Repere {
 
   }
   createOrdonnee(ctx){
-    ctx.rotate(Math.PI / 2)
-    this.createAbscisse(ctx)
-    ctx.rotate(-Math.PI / 2)
+     // ligne horizontale au milieu
+    let {w, h, scale} = this.size
+
+    ctx.moveTo(0, -h/2)
+    ctx.lineTo(0, h/2)
+
+    let ecart = h / scale
+
+    for(var i = -scale/2; i < scale/2; i++){
+      let y = i * ecart
+      ctx.moveTo( 0, y)
+      ctx.lineTo( 5, y)
+      if (i != 0) {
+        ctx.fillText(i, 10, y+2)
+      }
+    }
+
+    ctx.stroke()
   }
 
   displayFunction(func){
-    let {w, h, scale, sampling} = this.size
+    let {w, h, scale} = this.size
     let ctx = this.ctx
     ctx.fillStyle = "red"
 
+    let sampling_x = scale / w
+    let sampling_y = scale / h
 
-
-
+    let sampling = Math.min(sampling_x, sampling_y)
 
     for(var x = -scale / 2; x < scale/2; x+=sampling ){
       let y = func(x)
@@ -74,10 +93,10 @@ class Repere {
       let cnv_x = x/scale * w
       let cnv_y = y/scale * h * -1 // -1 cause canvas coords on y are upside down
 
-      ctx.fillRect(cnv_x, cnv_y, 2, 2);
+      ctx.fillRect(cnv_x, cnv_y, 1, 1);
     }
 
-    let funcText = "f" +  func.toString().replace('>', '').replace("*", "")
+    let funcText = "f" +  func.toString().replace('>', '')
     let textLength = ctx.measureText(funcText).width
 
     ctx.fillStyle = "#000"
