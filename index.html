@@ -6,18 +6,24 @@
   <style>
 
     canvas {
-      border: 1px solid red;
+
+      background: #eee;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <div id="repere"></div>
+  <canvas id="repere"></canvas>
+  <canvas id="repere_2"></canvas>
+
   <script src="./repere.js"></script>
   <script>
     let el = document.querySelector('#repere')
     let repere_1 = new Repere(el)
 
     repere_1.displayFunction( (x) => 2*x + 1)
+
+    new Repere(document.querySelector('#repere_2')).displayFunction( (x) => .5*x*x*x + .5*x*x - x + 1)
 
   </script>
 </body>

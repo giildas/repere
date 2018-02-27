@@ -2,18 +2,18 @@
 
 - auto scale depending on function (most of the curve must be visible !)
 - input for changing function
+- animate function over time (give a range for coefs)
 */
 
 
 class Repere {
-  constructor(el){
+  constructor(canvas){
 
     // insert a canvas in the el
 
-    let canvas = document.createElement('canvas')
 
     this.size = {
-      w: 300,
+      w: 50,
       h: 300,
       scale: 10, // from -5 to 5
       sampling: 0.05
@@ -21,7 +21,6 @@ class Repere {
 
     canvas.width = this.size.w
     canvas.height = this.size.h
-    el.appendChild(canvas)
 
     this.canvas = canvas
     this.ctx = canvas.getContext('2d')
