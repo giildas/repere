@@ -11,6 +11,12 @@ class Repere {
 
     // insert a canvas in the el
 
+    if (canvas === undefined) {
+      canvas = document.createElement("canvas")
+
+      document.body.appendChild (canvas)
+    }
+
 
     this.size = {
       w: 300,
@@ -56,8 +62,9 @@ class Repere {
     ctx.stroke()
 
   }
+
   createOrdonnee(ctx){
-     // ligne horizontale au milieu
+    // ligne horizontale au milieu
     let {w, h, scale} = this.size
 
     ctx.moveTo(0, -h/2)
@@ -80,30 +87,35 @@ class Repere {
   displayFunction(func){
     let {w, h, scale} = this.size
     let ctx = this.ctx
-    ctx.fillStyle = "red"
 
     let sampling_x = scale / w
     let sampling_y = scale / h
 
     let sampling = Math.min(sampling_x, sampling_y)
 
+    ctx.beginPath()
+    ctx.strokeStyle = "red"
     for(var x = -scale / 2; x < scale/2; x+=sampling ){
       let y = func(x)
 
       let cnv_x = x/scale * w
       let cnv_y = y/scale * h * -1 // -1 cause canvas coords on y are upside down
 
-      ctx.fillRect(cnv_x, cnv_y, 1, 1);
+      // ctx.fillRect(cnv_x, cnv_y, 1, 1);
+      ctx.lineTo(cnv_x, cnv_y);
     }
+    ctx.stroke()
+    // ctx.closePath()
+
+
 
     let funcText = "f" +  func.toString().replace('>', '')
     let textLength = ctx.measureText(funcText).width
-
     ctx.fillStyle = "#000"
-
     ctx.fillText(funcText, w/2 - textLength - 5, -h/2 + 20)
-
   }
+
+
 
 
 
